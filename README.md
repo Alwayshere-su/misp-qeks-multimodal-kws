@@ -1,5 +1,10 @@
 # 多模态开放词汇关键词检索挑战赛（MISP-QEKS）
 
+[![CI](https://github.com/Alwayshere-su/misp-qeks-multimodal-kws/actions/workflows/ci.yml/badge.svg)](https://github.com/Alwayshere-su/misp-qeks-multimodal-kws/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.12-blue.svg)](requirements.txt)
+[![AUC](https://img.shields.io/badge/AUC-0.90042-success.svg)](#-赛事成绩)
+
 > MISP-QEKS · Multimodal Open-Vocabulary Keyword Spotting · 团队 **MILK**
 
 本项目是参加 **科大讯飞开发者大赛——多模态开放词汇关键词检索挑战赛** 的算法实现与实验记录。
@@ -72,7 +77,7 @@ flowchart LR
 .
 ├── whisper_encoder.py          # whisper-tiny 编码器 + log-mel（所有特征的基础）
 ├── train_whisper_p1~p4.py      # 各版本匹配模型；p4 最强
-├── train_matcher_v5.py         # V5 训练
+├── train_matcher_v5.py         # V5 训练（历史脚本，output_v5 已删除）
 ├── asr_pipeline.py             # ASR 分析管线（ASR 路线最终失败）
 ├── lipreading_encoder.py       # 唇读视频编码器
 ├── scripts/                    # 整理后的脚本
@@ -84,12 +89,18 @@ flowchart LR
 │   └── tools/                  # 工具
 ├── opt/                        # 比赛期间的实验场（见 opt/README.md）
 ├── submission/                 # 5 个关键提交 CSV（见 submission/README.md）
+├── tests/                      # 提交格式与哈希校验（CI 同款）
 ├── docs/                       # 赛题、资产说明、整理记录（见 docs/README.md）
+│   └── history/                # 2026-08 的历史笔记与计划
+├── .github/workflows/ci.yml    # CI：Python 语法检查 + 提交校验
 ├── output_whisper/             # 核心特征缓存（不入库）
 ├── output_p4/                  # 最终 p4 模型权重（不入库）
 ├── output/ output_v2/ output_v3e/ output_lip/  # 历史实验产物（不入库）
 ├── train/ test/ val/ 辅助资源/  # 官方数据与预训练模型（不入库）
 ├── requirements.txt
+├── CITATION.cff                # 引用信息
+├── CONTRIBUTING.md             # 贡献指南
+├── CHANGELOG.md                # 版本记录
 ├── .gitignore
 └── .gitattributes
 ```
@@ -125,6 +136,21 @@ python opt/make_dtw_submit.py
 
 > 注意：`submit_mt_gf_split.csv`（0.89995）的生成脚本没有保留在仓库中，只有读取它的后续融合脚本；复现最优结果依赖仓库里已归档的该 CSV。其余说明见 `submission/README.md`。
 
+## ✅ 复现与验证
+
+仓库不包含数据与权重，但保留的提交可以独立校验，CI 每次 push 都会跑：
+
+```bash
+python tests/check_submissions.py
+```
+
+- 5 个 CSV 均为 100,000 行，inset / outset 各 50,000，id 覆盖 0–49999；
+- 最优文件 `submit_gf_dtw.csv` 的 SHA256 为 `b77b5ffe…`，脚本逐字节比对；
+- 用归档的 `opt/_dtw_{inset,outset}_full.npy` 与 `submit_mt_gf_split.csv` 重跑融合，输出与归档文件字节一致；
+- `make_dtw_submit.py --val-only` 在开发集上得到 dev_seen **0.8453** / dev_unseen **0.9792**。
+
+完整 DTW 重算（约 30–50 分钟）不在 CI 中，依赖 `output_whisper/test_{inset,outset}.pkl` 与 `output_p4/` 权重。
+
 ## 📦 提交文件
 
 `submission/` 只保留 5 个有关键分数的提交（约 10 MB）；其余 81 个实验版本在仓库外的 `_archive_misp_submissions/`，不参与版本控制。最优文件的格式、分数来源与 SHA256 见 [`submission/README.md`](submission/README.md)。
@@ -141,6 +167,11 @@ python opt/make_dtw_submit.py
 
 - 团队名称：**MILK**
 - 我的角色：核心算法开发 / 数据处理 / 模型调优
+
+## 🤝 贡献与引用
+
+- 贡献方式与本地检查见 [`CONTRIBUTING.md`](CONTRIBUTING.md)，行为准则见 [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)，版本变化见 [`CHANGELOG.md`](CHANGELOG.md)。
+- 引用本仓库请使用 [`CITATION.cff`](CITATION.cff)；GitHub 页面右上角 “Cite this repository” 可直接导出 BibTeX。
 
 ## 📄 数据与许可
 

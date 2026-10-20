@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 只编译仓库内的脚本；数据目录和 output_* 不入库，CI 里也不存在
+      - name: Syntax check tracked Python files
+        run: |
+          git ls-files '*.py' -z | xargs -0 python -m py_compile
+          echo "compiled $(git ls-files '*.py' | wc -l) files"
+
+      - name: Validate submission files
+        run: python tests/check_submissions.py

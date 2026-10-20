@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this code or the reported results, please cite it as below."
+title: "MISP-QEKS Multimodal Open-Vocabulary Keyword Spotting"
+abstract: >-
+  Query-by-Example keyword spotting for open-vocabulary keywords on the
+  MISP-QEKS dataset. The system combines whisper-tiny embeddings, a supervised
+  p4 matcher, unsupervised multi-template matching, split-aware fusion and
+  outset DTW weighting, reaching 0.90042 AUC in the 2026 iFLYTEK competition.
+authors:
+  - name: "MILK Team"
+repository-code: "https://github.com/Alwayshere-su/misp-qeks-multimodal-kws"
+url: "https://github.com/Alwayshere-su/misp-qeks-multimodal-kws"
+license: Apache-2.0
+version: 1.0.0
+date-released: 2026-10-20
+keywords:
+  - keyword spotting
+  - query-by-example
+  - open vocabulary
+  - multimodal
+  - whisper
+  - pytorch

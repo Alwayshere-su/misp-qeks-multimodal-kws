@@ -34,6 +34,6 @@
 
 ## 注意
 
-- `PROGRESS.md` 是 **2026-08-05** 的历史断点（当时 0.82755），不是最新状态；最新已知结果看根 `README.md` 和 `docs/旧特征40GB说明.md`。
+- 历史断点已移到 `docs/history/PROGRESS.md`（**2026-08-05**，当时 0.82755），不是最新状态；最新已知结果看根 `README.md` 和 `docs/旧特征40GB说明.md`。
 - `test2.py`、`test3.py`、`test_write.py`、`_gen.py`、`test.txt` 等是临时文件；其中 `test3.py` 和 `_gen.py` 本身有语法错误，不参与任何管线。
 - 提交文件统一在 `submission/`，说明见 `submission/README.md`。
