@@ -1,0 +1,16 @@
+# 文本文件按仓库默认处理
+* text=auto
+
+# 二进制文件不做换行转换
+*.pkl binary
+*.npz binary
+*.npy binary
+*.pt binary
+*.pth binary
+*.onnx binary
+*.wav binary
+*.mp4 binary
+*.zip binary
+
+# 提交 CSV 保持文本，并强制 LF 落盘，保证克隆后字节与归档一致
+*.csv text eol=lf

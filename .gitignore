@@ -1,0 +1,40 @@
+# 官方数据（体积大、不可公开分发）
+train/
+test/
+val/
+辅助资源/
+提交样例/
+
+# 所有特征、权重和实验输出目录
+output*/
+opt/out_*/
+
+# 特征/权重/缓存文件
+*.pkl
+*.npz
+*.npy
+*.pt
+*.pth
+*.onnx
+
+# 日志
+logs/*.log
+opt/*.log
+opt/*.err
+
+# opt 下的临时/失败脚本（test3.py、_gen.py 本身有语法错误，不参与管线）
+opt/test*.py
+opt/test*.txt
+opt/_gen.py
+opt/_test_mini.py
+
+# Python 缓存与虚拟环境
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# 系统/编辑器杂项
+.DS_Store
+Thumbs.db

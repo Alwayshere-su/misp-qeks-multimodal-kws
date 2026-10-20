@@ -1,0 +1,8 @@
+# 实测环境：Python 3.12.13 + CUDA 12.x（RTX 5060 8GB）
+torch==2.11.0+cu128
+numpy==1.26.4
+scipy==1.17.1
+scikit-learn==1.9.0
+soundfile==0.14.0
+tiktoken==0.13.0
+tqdm==4.67.3
